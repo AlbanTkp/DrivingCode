@@ -17,11 +17,15 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $levels = [LEVEL_EASY, LEVEL_MEDIUM, LEVEL_HARD];
+        $randomIndex = array_rand($levels);
+        $fname = fake()->unique()->firstName();
         return [
-            'lastname' => fake()->name(),
-            'firstname' => fake()->name(),
+            'level' => $levels[$randomIndex],
+            'lastname' => fake()->lastName(),
+            'firstname' => $fname,
             'tel' => fake()->unique()->phoneNumber(),
-            'email' => fake()->unique()->userName()."@gmail.com",
+            'email' => $fname."@gmail.com",
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),

@@ -22,10 +22,13 @@ class TestFactory extends Factory
     {
         $user_id = User::inRandomOrder()->first()->id;
         $chapitre_id = Chapter::inRandomOrder()->first()->id;
+        $levels = [LEVEL_EASY, LEVEL_MEDIUM, LEVEL_HARD];
+        $randomIndex = array_rand($levels);
         return [
             'user_id' => $user_id,
             'chapter_id' => $chapitre_id,
-            'note' => $this->faker->numberBetween(0, 100),
+            'level' => $levels[$randomIndex],
+            'score' => $this->faker->numberBetween(0, 100),
         ];
     }
 }

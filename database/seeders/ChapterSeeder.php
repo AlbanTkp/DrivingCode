@@ -26,7 +26,7 @@ class ChapterSeeder extends Seeder
     public function run(): void
     {
         Chapter::factory()
-        ->count(10)
+        ->count(8)
         ->has(
             Topic::factory()
             ->count(6)
@@ -36,7 +36,7 @@ class ChapterSeeder extends Seeder
         )
         ->has(
             Question::factory()
-            ->count(10)
+            ->count(80)
             ->state(function (array $attributes, Chapter $chapter) {
                 return ['chapter_id' => $chapter->id];
             })
@@ -50,7 +50,7 @@ class ChapterSeeder extends Seeder
         )
         ->has(
             Course::factory()
-            ->count(random_int(5,6))
+            ->count(random_int(10,12))
             ->state(function (array $attributes, Chapter $chapter) {
                 return ['chapter_id' => $chapter->id];
             })
@@ -63,7 +63,7 @@ class ChapterSeeder extends Seeder
             )
             ->has(
                 Simulation::factory()
-                ->count(random_int(1,2))
+                ->count(random_int(5,6))
                 ->state(function (array $attributes, Course $course) {
                     return ['course_id' => $course->id];
                 })
@@ -79,7 +79,8 @@ class ChapterSeeder extends Seeder
         ->create();
 
         Question::all()->each(function (Question $question) {
-            $correct_answers_count = random_int(1, 2);
+            // $correct_answers_count = random_int(1, 2);
+            $correct_answers_count = 1;
             $answers = $question->answers()->inRandomOrder()->take($correct_answers_count)->get();
             $answers->each(function (Answer $answer) {
                 $answer->update(['correct' => true]);

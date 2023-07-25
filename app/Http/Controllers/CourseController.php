@@ -36,8 +36,24 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {
+        $cs = Course::whereChapter_id($course->chapter_id)->get();
+        $previous_id = 0;
+        $next_id = 0;
+        foreach($cs as $k=>$c){
+            if($c->id == $course->id){
+                if($k > 0){
+                    $previous_id = $cs[$k-1]->id;
+                }
+                if($k+1 < $cs->count()){
+                    $next_id = $cs[$k+1]->id;
+                }
+                break;
+            }
+        }
         $data = [
-            'course'=>$course
+            'course'=>$course,
+            'previous_id'=>$previous_id,
+            'next_id'=>$next_id
         ];
 
         return view('pages.course', $data);

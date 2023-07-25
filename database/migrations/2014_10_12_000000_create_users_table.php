@@ -14,6 +14,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->enum('level', [LEVEL_EASY, LEVEL_MEDIUM, LEVEL_HARD])->default(LEVEL_EASY);
             $table->string('lastname');
             $table->string('firstname');
             $table->string('tel')->unique();

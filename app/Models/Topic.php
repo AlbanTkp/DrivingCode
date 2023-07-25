@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Topic extends Model
 {
     use HasFactory;
+    protected $guarded = ['id'];
 
     public function chapter(): BelongsTo
     {

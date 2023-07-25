@@ -7,7 +7,7 @@
         <div class="card mb-4 d-block w-100 shadow-xss rounded-lg p-xxl-5 p-4 border-0 text-center">
             <a href="#" class="position-absolute right-0 mr-4 top-0 mt-3"><i class="ti-more text-grey-500 font-xs"></i></a>
             <a href="#" class="btn-round-xxxl rounded-lg bg-lightblue ml-auto mr-auto">
-                <img src="{{$chapter->banner}}" style="width: 60px; height: 60px;" alt="icon" class="p-1">
+                <img src="{{asset('assets/images/'.$chapter->banner)}}" style="width: 60px; height: 60px;" alt="icon" class="p-1">
             </a>
             <h4 class="fw-700 font-xs mt-4">{{$chapter->title}}</h4>
             <p class="fw-500 font-xssss text-grey-500 mt-3">{{$chapter->description}}</p>

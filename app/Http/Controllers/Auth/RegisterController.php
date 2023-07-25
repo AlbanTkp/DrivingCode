@@ -57,7 +57,7 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ],[
             'lastname.required'=>'Le nom est requis',
-            'firstname.required'=>'Le nom est requis',
+            'firstname.required'=>'Le prénom est requis',
             'tel.required'=>'Le numéro de téléphone est requis',
             'tel.unique'=>'Ce numéro de téléphone est déja utilisé',
             'email.required'=>'L\'email est requis',

@@ -56,6 +56,53 @@ class HomeController extends Controller
         return view('pages.profile');
     }
 
+    public function updateProfile(Request $request)
+    {
+        $auth = auth()->user();
+        if($request->has('level')){
+            $request->validate([
+                'level' => ['string', 'in:'.LEVEL_EASY.','.LEVEL_MEDIUM.','.LEVEL_HARD],
+            ],[
+                'level.in'=>'Niveau de difficulté inconnu',
+            ]);
+            $auth->fill([
+                'level'=>$request->level,
+            ]);
+            $msg = 'Niveau de difficulté mis à jour';
+        }else{
+            $request->validate([
+                'lastname' => ['required', 'string', 'max:255'],
+                'firstname' => ['required', 'string', 'max:255'],
+                'tel' => ['required', 'string', 'max:255', 'unique:users,tel,'.$auth->id],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$auth->id],
+            ],[
+                'lastname.required'=>'Le nom est requis',
+                'firstname.required'=>'Le prénom est requis',
+                'tel.required'=>'Le numéro de téléphone est requis',
+                'tel.unique'=>'Ce numéro de téléphone est déja utilisé',
+                'email.required'=>'L\'email est requis',
+                'email.email'=>'Email invalide',
+                'email.unique'=>'Cet email est déja utilisé',
+            ]);
+
+            $auth->fill([
+                'lastname'=>$request->lastname,
+                'firstname'=>$request->firstname,
+                'email'=>$request->email,
+                'tel'=>$request->tel,
+            ]);
+            $msg = 'Informations modifiées avec succès';
+        }
+        $auth->save();
+        $flash = [
+            'title'=>'Succès',
+            'type'=>'success',
+            'msg'=>$msg
+        ];
+        session()->flash( 'alert',$flash);
+        return redirect()->route('profile');
+    }
+
     public function stats(){
 
         return view('pages.stats');

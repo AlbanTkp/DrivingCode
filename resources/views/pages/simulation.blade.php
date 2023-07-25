@@ -1,79 +1,5 @@
 @extends('layouts.master')
 @section('script')
-<script src="{{asset('assets/js/countdown.js')}}"></script>
-<script>
-    // Obtenir la date actuelle
-    const dateActuelle = new Date();
-
-    // Définir la valeur de n en minutes (par exemple, n = 30 pour ajouter 30 minutes)
-
-    // Ajouter n minutes à la date actuelle
-    dateActuelle.setMinutes(dateActuelle.getMinutes() + {{$duration}});
-
-    // Extraire les éléments de la date après l'ajout de n minutes
-    const annee = dateActuelle.getFullYear();
-    const mois = dateActuelle.getMonth() + 1; // Notez que les mois commencent à partir de 0 (janvier = 0)
-    const jour = dateActuelle.getDate();
-    const heures = dateActuelle.getHours();
-    const minutes = dateActuelle.getMinutes();
-
-    // Formater la date et l'heure avec des zéros supplémentaires si nécessaire
-    const dateFormatee = `${annee}/${mois}/${jour} ${heures}:${minutes}`;
-
-
-    $(function () {
-
-        $('.timer').countdown(dateFormatee, function(event) {
-          var $this = $(this).html(event.strftime(''
-            // + '<span>%w</span> weeks '
-            // + '<div class="time-count"><span class="text-time">%d</span> <span class="text-day">Day</span></div> '
-            + '<div class="time-count"><span class="text-time">%H</span> <span class="text-day">Hres</span> </div> '
-            + '<div class="time-count"><span class="text-time">%M</span> <span class="text-day">Min</span> </div> '
-            + '<div class="time-count"><span class="text-time">%S</span> <span class="text-day">Sec</span> </div> '));
-        });
-    });
-
-
-    let q = []
-    @foreach($questions as $q)
-    q.push({
-        'question_id': {{$q->id}},
-        'answers':[]
-    })
-    @endforeach
-
-    $('.next-bttn').click(function (e) {
-        const k = $(this).data('current');
-        $(this).parent().find('.active').each(function(index, element) {
-            q[k]['answers'].push($(element).data('answer'))
-        });
-
-        if(k+1 == q.length){
-            data = {
-                'chapter': {{$chapter->id}},
-                "questions":q
-            }
-            $.post("{{route('tests.store')}}", data,
-                function (data, textStatus, jqXHR) {
-                    // console.log(textStatus);
-                    // console.log(jqXHR);
-                    // console.log(data);
-                    if(data.success == true){
-                        $('#score').text(data.data.score)
-                        if(data.data.new_badge == true){
-                            Swal.fire(
-                                'Félicitations!!',
-                                'Vous avez obtenu un nouveau badge. Consultez votre profil pour voir la liste de vos badges',
-                                'success'
-                            )
-                        }
-                    }
-                },
-                "json"
-            );
-        }
-    });
-</script>
 @endsection
 @section('content')
 <div class="middle-sidebar-left">
@@ -83,7 +9,7 @@
                 <a href="#" class="position-absolute right-0 mr-4 top-0 mt-3">
                     {{-- <i class="ti-more text-grey-500 font-xs"></i> --}}
                 </a>
-                <img src="{{asset('assets/images/'.$chapter->banner)}}" alt="icon" class="p-1 img-fluid">
+                <img src="{{$chapter->banner}}" alt="icon" class="p-1 img-fluid">
                 <h4 class="fw-700 font-xs mt-4">{{$chapter->title}}</h4>
                 {{-- <p class="fw-500 font-xssss text-grey-500 mt-3">Chapitre signalisation</p> --}}
                 <div class="clearfix"></div>
@@ -112,7 +38,7 @@
                     <h4 class="font-xssss text-uppercase text-current fw-700 ls-3">Question {{$k+1}}</h4>
                     <h3 class="font-sm text-grey-800 fw-700 lh-32 mt-4 mb-4">{{$question->text}}</h3>
                     @foreach($question->answers as $answer)
-                    <p data-answer="{{$answer->id}}" class="bg-{{$answer->correct?'lightgreen':'lightblue'}} theme-dark-bg  p-4 mt-3 question-ans style1 rounded-lg font-xsss fw-600 lh-30 text-grey-700 mb-0 p-2">{{$answer->text}}</p>
+                    <p data-answer="{{$answer->id}}" class="bg-lightblue theme-dark-bg  p-4 mt-3 question-ans style1 rounded-lg font-xsss fw-600 lh-30 text-grey-700 mb-0 p-2">{{$answer->text}}</p>
                     @endforeach
                     <a href="#" data-current="{{$k}}" data-question="question{{$k+1}}" class="next-bttn p-2 mt-3 d-inline-block text-white fw-700 lh-30 rounded-lg w200 text-center font-xsssss ls-3 bg-current">NEXT</a>
                 </div>
@@ -121,7 +47,7 @@
                     {{-- <img src="images/world-cup.png" alt="icon" class="d-inline-block"> --}}
                     <h2 class="fw-700 mt-5 text-grey-900 font-xxl">Congratulation</h2>
                     <p class="font-xssss fw-600 lh-30 text-grey-500 mb-0 p-2">Vous avez terminé le test. Votre note est de:</p>
-                    <a id="score" href="{{route('profile')}}" class="p-2 mt-3 d-inline-block text-white fw-700 lh-30 rounded-lg w200 text-center font-xsssss ls-3 bg-current"></a>
+                    <a id="score" href="{{route('stats')}}" class="p-2 mt-3 d-inline-block text-white fw-700 lh-30 rounded-lg w200 text-center font-xsssss ls-3 bg-current"></a>
                 </div>
             </div>
 

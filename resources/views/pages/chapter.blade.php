@@ -70,29 +70,19 @@
                 @endforeach
 
             </div>
-
-            <div class="card d-block border-0 rounded-lg overflow-hidden p-4 shadow-xss mt-4">
-                <h2 class="fw-700 font-sm mb-3 mt-1 pl-1 mb-3">Description</h2>
-                <p class="font-xssss fw-500 lh-28 text-grey-600 mb-0 pl-2">{{$chapter->description}}</p>
-            </div>
         </div>
-        <div class="col-xl-4 col-xxl-3">
+        <div class="col-xl-4 col-xxl-3 mt-3 mt-xl-0">
             <div class="card overflow-hidden subscribe-widget p-3 mb-3 rounded-xxl border-0 shadow-xss">
                 <div class="card-body p-3 d-block text-left">
-                    <h1 class="display1-size text-current fw-700 mb-4">TEST<span class="font-xss text-grey-500 fw-500"> / {{$chapter->questions->count()}} questions</span></h1>
-                     {{-- <h4 class="pl-35 mb-4 font-xsss fw-600 text-grey-900 position-relative"><i class="feather-shield font-lg text-current position-absolute left-0"></i> Experience <span class="d-block text-grey-500 mt-1 font-xssss">0 - 2 Year </span></h4>
-                     <h4 class="pl-35 mb-4 font-xsss fw-600 text-grey-900 position-relative"><i class="feather-database font-lg text-current position-absolute left-0"></i> Language <span class="d-block text-grey-500 mt-1 font-xssss">English, Germen, Spanish </span></h4>
-                     <h4 class="pl-35 mb-4 font-xsss fw-600 text-grey-900 position-relative"><i class="feather-home font-lg text-current position-absolute left-0"></i> Gender <span class="d-block text-grey-500 mt-1 font-xssss">Male </span></h4>
-                     <h4 class="pl-35 mb-4 font-xsss fw-600 text-grey-900 position-relative"><i class="feather-shield font-lg text-current position-absolute left-0"></i> Education <span class="d-block text-grey-500 mt-1 font-xssss">MBA </span></h4>
-                     <h4 class="pl-35 mb-4 font-xsss fw-600 text-grey-900 position-relative"><i class="feather-flag font-lg text-current position-absolute left-0"></i> Company <span class="d-block text-grey-500 mt-1 font-xssss">Github </span></h4>
-                     <h4 class="pl-35 mb-0 font-xsss fw-600 text-grey-900 position-relative"><i class="feather-award font-lg text-current position-absolute left-0"></i> Age <span class="d-block text-grey-500 mt-1 font-xssss">32 Year </span></h4> --}}
-                     {{-- <form action="{{route('tests.start')}}" method="post">
-                        @csrf
-                        <input type="hidden" name="chapter" value="{{$chapter->id}}">
-                    </form> --}}
+                    <h1 class="display1-size text-current fw-700 mb-4">TEST</h1>
+                    <h4 class="pl-35 mb-4 font-xsss fw-600 text-grey-900 position-relative"><i class="feather-help-circle font-xxl text-current position-absolute left-0"></i> <span class="text-grey-500 mt-1 font-md pl-1">{{$nb_questions}} questions  </span></h4>
+                    <h4 class="pl-35 mb-4 font-xsss fw-600 text-grey-900 position-relative"><i class="feather-clock font-xxl text-current position-absolute left-0"></i> <span class="text-grey-500 mt-1 font-md pl-1">{{$duration}} min </span></h4>
+
                     <a href="{{route('chapters.test',$chapter->id)}}" class="bg-primary-gradiant border-0 text-white fw-600 text-uppercase font-xssss float-left rounded-lg d-block mt-4 w-100 p-2 lh-34 text-center ls-3 ">Démarrer le test</a>
                 </div>
             </div>
+
+
 
             <div class="card shadow-xss rounded-lg border-0 p-4 mb-4">
                 <h4 class="font-xs fw-700 text-grey-900 d-block mb-3">Lessons

@@ -39,8 +39,26 @@ class ChapterController extends Controller
         $chapter->load('courses');
         $chapter->{'banner'} = $chapter->courses[0]->files[0]->path;
 
+        $auth = auth()->user();
+        switch($auth->level){
+            case LEVEL_EASY:
+                $nb_q = 5;
+                $duration = 5;
+                break;
+            case LEVEL_MEDIUM:
+                $nb_q = 7;
+                $duration = 3;
+                break;
+            case LEVEL_HARD:
+                $nb_q = 10;
+                $duration = 2;
+                break;
+        }
+
         $data = [
-            'chapter'=>$chapter
+            'chapter'=>$chapter,
+            'nb_questions'=>$nb_q,
+            'duration'=>$duration
         ];
         return view('pages.chapter', $data);
     }
@@ -70,13 +88,28 @@ class ChapterController extends Controller
     }
 
     public function test(Request $request, $id){
+        $auth = auth()->user();
+        switch($auth->level){
+            case LEVEL_EASY:
+                $nb_q = 5;
+                $duration = 5;
+                break;
+            case LEVEL_MEDIUM:
+                $nb_q = 7;
+                $duration = 3;
+                break;
+            case LEVEL_HARD:
+                $nb_q = 10;
+                $duration = 2;
+                break;
+        }
         $chapter = Chapter::find($id);
         $chapter->{'banner'} = $chapter->courses[0]->files[0]->path;
-        $q = $chapter->questions()->inRandomOrder()->with('answers')->take(10)->get();
+        $q = $chapter->questions()->inRandomOrder()->with('answers')->take($nb_q)->get();
         $data = [
             'questions'=>$q,
             'chapter'=>$chapter,
-            'duration'=>30
+            'duration'=>$duration
         ];
         return view('pages.test', $data);
     }

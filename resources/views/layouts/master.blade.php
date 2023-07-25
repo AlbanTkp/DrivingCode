@@ -60,6 +60,16 @@
             $('#logout-form').submit()
         });
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.20/sweetalert2.all.min.js" integrity="sha512-g6SyD3meGVFsbHBlMq7eDdEXPvtH9/yPKS9HNZKN1sB6nDVSzVwcmArToKFPb0EIlT16Q45/urC6DjJf1q8rIw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    @if($alert = session()->get('alert'))
+    <script>
+        Swal.fire(
+            "{{$alert['title']}}",
+            "{{$alert['msg']}}",
+            "{{$alert['type']}}"
+        )
+    </script>
+    @endif
     @yield('script')
 </body>
 </html>

@@ -28,7 +28,8 @@ class CourseFactory extends Factory
             'title' => fake()->unique()->sentence(),
             'description' => fake()->paragraph(),
             'plan' => $plan,
-            'text' => fake()->paragraph(),
+            // 'text' => fake()->paragraph(),
+            'text' => fake()->randomHtml(5,5),
         ];
     }
 }

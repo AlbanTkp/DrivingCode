@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('chapter_id');
             $table->integer('duration');
             $table->string('title');
-            $table->text('description');
+            $table->longText('description');
             $table->text('plan');
             $table->text('text');
             $table->timestamp('created_at')->useCurrent();
